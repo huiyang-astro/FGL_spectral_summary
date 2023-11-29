@@ -13,8 +13,10 @@ table, th, td {
 <h2>Spectral fitting summary of 4FGL UNIDs X-ray counterpart candidates</h2>
 <!-- <p>To make a cell span more than one column, use the colspan attribute.</p> -->
 
-CT: classification confidence threshold;<br>Nobs: number of observations with net_cnt>50; <br>&Delta;log10(Z): Bayesian evidence (0 for the best model); <br>log10(nH): from the best fitted model;<br> nH_LAB: <a href="https://lambda.gsfc.nasa.gov/product/foreground/fg_LAB_HI_Survey_info.html">LAB_HI_Survey Maps</a> 
-
+CT: classification confidence threshold;<br>Nobs: number of observations with net_cnt>50; <br>&Delta;log10(Z): Bayesian evidence (0 for the best model); <br>log10(nH): from the best fitted model;<br> nH_LAB: <a href="https://lambda.gsfc.nasa.gov/product/foreground/fg_LAB_HI_Survey_info.html">LAB_HI_Survey Maps</a> <br>
+Spectral analysis: we performed spectral analysis with the BXA and sherpa software, to generate Bayesian parameter estimation and model comparison. We consider absorbed () models: powerlaw (PL; xspowerlaw), thermal plasma emission (Mekal; xsmekal), blackbody (BB; xsbbodyrad).  The interstellar X-ray absorption was modelled using xstbabs, with the wilm
+elemental abundance (Wilms et al. 2000) and vern photoelectric absorption cross section  (Verner et al. 1996). The data are grouped to at least 15 photons per bin for display purposes, while data were grouped to at least 5 photons per bin for fitting processes. The spectrum was fitted with WSTAT statistics.<br>
+References:  <a href="https://johannesbuchner.github.io/BXA/sherpa-analysis.html">BXA</a>, <a href="https://peterboorman.com/tutorial_bxa">Tutorial</a>, <a href="https://arxiv.org/pdf/2309.05705.pdf">J. Buchner & P. Boorman 2023</a>, <a href="https://arxiv.org/pdf/2309.13189.pdf">J. Zhao & C. O. Heinke 2023</a>
 
 <table style="width:100%">
   <tr>
