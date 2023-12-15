@@ -64,8 +64,8 @@ Base
     let aladin;
     A.init.then(() => {
 
-                // define custom draw function
-                var drawFunction = function(source, canvasCtx, viewParams) {
+            // define custom draw function
+            var drawFunction = function(source, canvasCtx, viewParams) {
             canvasCtx.beginPath();
             canvasCtx.arc(source.x, source.y,6, 0, 2 * Math.PI, false);
             canvasCtx.closePath();
@@ -98,8 +98,8 @@ Base
             canvasCtx.fillStyle = '#abc';
             canvasCtx.fillText(source.data['Class'], source.x + 2 + xShift, source.y + 10);
         };
-        
-        aladin = A.aladin('#aladin-lite-div', {target: "134.862609 -43.757805", fov:0.005});
+
+        aladin = A.aladin('#aladin-lite-div', {target: "99.52142687586397, -80.31491311531052", fov:0.005});
         
         var callback = function(ra, dec, fov) {
             aladin.addCatalog(A.catalogFromSimbad( {ra: ra, dec: dec} , 1 , {shape: 'circle', color: '#5d5', onClick: 'showTable'}));
@@ -201,44 +201,6 @@ Base
             } 
         });
 
-        var hips2 = A.catalogHiPS('https://axel.u-strasbg.fr/HiPSCatService/Simbad', {onClick: 'showTable', name: 'Simbad',sourceSize: 5});
-        hips2.hide();
-        aladin.addCatalog(hips2);
-
-        var hips = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/FGL-aladin-lite-test/main/FGL_11152023_all_class_color.vot', {onClick: 'showTable', sourceSize: 100,  name: 'CSC',shape: drawFunction}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
-         aladin.addCatalog(hips);
-
-        var hips = A.catalogHiPS('https://data.darts.isas.jaxa.jp/pub/HiPS/SWIFT-XRT_Catalogue/', {onClick: 'showPopup',  sourceSize: 10,  name: 'XRT',shape:'circle'});
-        hips.hide(); 
-        aladin.addCatalog(hips);
-
-         // var hips5 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/SNR_aladin-lite-example/main/files/catalogs/4XMM-DR13.vot', {onClick: 'showPopup', sourceSize: 10,  name:'XMM',shape:'circle', color:'orange'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
-         var hips5 = A.catalogHiPS('https://data.darts.isas.jaxa.jp/pub/HiPS/XMM-EPIC_Catalogue/', {onClick: 'showTable', sourceSize: 10, name: 'XMM',shape:'circle' });
-         hips5.hide();
-         aladin.addCatalog(hips5);
-
-        //  var hips6 = A.catalogHiPS('https://data.darts.isas.jaxa.jp/pub/HiPS/CHANDRA_Catalogue/', {onClick: 'showTable', sourceSize: 10, name: 'CSC',shape:'circle',color:'white' });
-        //  hips6.hide();
-        //  aladin.addCatalog(hips6);
-
-        var hips4 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/SNR_aladin-lite-example/main/files/catalogs/4FGL-DR4.vot', {onClick: 'showPopup', sourceSize: 10,  name:'4FGL',shape:'circle'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
-        hips4.hide(); 
-        aladin.addCatalog(hips4);
-
-        var hips9 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/FGL-aladin-lite-test/main/ATNF_NS.vot', {onClick: 'showPopup', sourceSize: 10,  name:'ATNF'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
-        hips9.hide(); 
-        aladin.addCatalog(hips9);
-
-        var hips3 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/SNR_aladin-lite-example/main/files/catalogs/BlackCAT.vot', {onClick: 'showPopup', sourceSize: 10,  name:'BlackCAT'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
-        hips3.hide(); 
-        aladin.addCatalog(hips3);
-        
-        var hips10 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/FGL-aladin-lite-test/main/TeVCat.vot', {onClick: 'showPopup', sourceSize: 10,  name:'TeVCat'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
-        hips10.hide();  
-        aladin.addCatalog(hips10);
-
-        var hips11 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/FGL-aladin-lite-test/main/NScan_deeperSurvey.vot', {onClick: 'showPopup', sourceSize: 20,  name:'match-to-deeper',shape:'plus', color:'cyan'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
-         aladin.addCatalog(hips11);
         
           // 'gold', 'orange', 'magenta', 'red', 'blue'
 
@@ -2907,6 +2869,44 @@ Base
         cat.addSources([A.marker(287.7754545517915, 9.092623945111608, {popupTitle: '2CXO J191106.1+090533', popupDesc: '287.775455 9.092624 0.36" <a target="_blank" href="https://simbad.u-strasbg.fr/simbad/sim-coo?CooDefinedFrames=none&CooEpoch=2000&Coord=287.7754545517915%209.092623945111608&submit=submit%20query&Radius.unit=arcsec&CooEqui=2000&CooFrame=FK5&Radius=20">Simbad</a><br/>Fb=9.4e-15 HR_h(ms)=0.9 P_intra=0.93<br/>0 CP(s)<br/>Classified as NS 89&plusmn13% (CT=4.1)<br/>with X-ray features only:  NS 57&plusmn19% (CT=1.6)<br/>'})]);
         cat.addSources([A.marker(206.4813719219129, -62.88544032906076, {popupTitle: '2CXO J134555.5-625307', popupDesc: '206.481372 -62.885440 1.61" <a target="_blank" href="https://simbad.u-strasbg.fr/simbad/sim-coo?CooDefinedFrames=none&CooEpoch=2000&Coord=206.4813719219129%20-62.88544032906076&submit=submit%20query&Radius.unit=arcsec&CooEqui=2000&CooFrame=FK5&Radius=20">Simbad</a><br/>Fb=8.3e-15 HR_h(ms)=-0.0 P_intra=0.31<br/>3 CP(s)(p_c=16.6% p_any=99.1%)<br/>1st CP (p_i=40%): G=15.4 <br/>Classified as HM-STAR 44&plusmn18% (CT=0.6)<br/>2nd CP (p_i=34%): J=13.4 <br/>Classified as LM-STAR 35&plusmn10% (CT=0.1)<br/>Without CP classified as NS 87&plusmn18% (CT=2.2)<br/>Combined classified as NS 26&plusmn4% (CT=0.5)<br/>'})]);
 
+        var hips2 = A.catalogHiPS('https://axel.u-strasbg.fr/HiPSCatService/Simbad', {onClick: 'showTable', name: 'Simbad',sourceSize: 5});
+        hips2.hide();
+        aladin.addCatalog(hips2);
+
+        var hips = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/FGL-aladin-lite-test/main/FGL_11152023_all_class_color.vot', {onClick: 'showTable', sourceSize: 100,  name: 'CSC',shape: drawFunction}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
+         aladin.addCatalog(hips);
+
+        var hips = A.catalogHiPS('https://data.darts.isas.jaxa.jp/pub/HiPS/SWIFT-XRT_Catalogue/', {onClick: 'showPopup',  sourceSize: 10,  name: 'XRT',shape:'circle'});
+        hips.hide(); 
+        aladin.addCatalog(hips);
+
+         // var hips5 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/SNR_aladin-lite-example/main/files/catalogs/4XMM-DR13.vot', {onClick: 'showPopup', sourceSize: 10,  name:'XMM',shape:'circle', color:'orange'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
+         var hips5 = A.catalogHiPS('https://data.darts.isas.jaxa.jp/pub/HiPS/XMM-EPIC_Catalogue/', {onClick: 'showTable', sourceSize: 10, name: 'XMM',shape:'circle' });
+         hips5.hide();
+         aladin.addCatalog(hips5);
+
+         var hips6 = A.catalogHiPS('https://data.darts.isas.jaxa.jp/pub/HiPS/CHANDRA_Catalogue/', {onClick: 'showTable', sourceSize: 10, name: 'CSCv2.0',shape:'circle',color:'white' });
+        //  hips6.hide();
+         aladin.addCatalog(hips6);
+
+        var hips4 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/SNR_aladin-lite-example/main/files/catalogs/4FGL-DR4.vot', {onClick: 'showPopup', sourceSize: 10,  name:'4FGL',shape:'circle'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
+        hips4.hide(); 
+        aladin.addCatalog(hips4);
+
+        var hips9 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/FGL-aladin-lite-test/main/ATNF_NS.vot', {onClick: 'showPopup', sourceSize: 10,  name:'ATNF'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
+        hips9.hide(); 
+        aladin.addCatalog(hips9);
+
+        var hips3 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/SNR_aladin-lite-example/main/files/catalogs/BlackCAT.vot', {onClick: 'showPopup', sourceSize: 10,  name:'BlackCAT'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
+        hips3.hide(); 
+        aladin.addCatalog(hips3);
+        
+        var hips10 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/FGL-aladin-lite-test/main/TeVCat.vot', {onClick: 'showPopup', sourceSize: 10,  name:'TeVCat'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
+        hips10.hide();  
+        aladin.addCatalog(hips10);
+
+        var hips11 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/FGL-aladin-lite-test/main/NScan_deeperSurvey.vot', {onClick: 'showPopup', sourceSize: 20,  name:'match-to-deeper',shape:'plus', color:'cyan'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
+         aladin.addCatalog(hips11);
 
     });
 </script>
@@ -2927,14 +2927,14 @@ Base
       <th>CT</th>
     </tr>
     <tr>
-    <td>J085927.0-434528</td>
-    <td>J0859.3-4342</td>
-    <td>265.1473173</td>
-    <td>1.4499867</td>
-    <td><a class="image-link" href="../images/shap/J085927.0-434528_CV.png" target="_blank">CV</a></td>
-    <td>0.658442</td>
-    <td>0.108274</td>
-    <td>2.45</td>
+    <td>2CXOJ063805.1-801854</td>
+    <td>J0639.1-8009</td>
+    <td>292.0404364</td>
+    <td>-27.2712021</td>
+    <td><a class="image-link" href="../images/shap/J063805.1-801854_CV.png" target="_blank">CV</a></td>
+    <td>0.420</td>
+    <td>0.103</td>
+    <td>0.37</td>
     </tr>
     </tbody>
 </table>
@@ -2958,17 +2958,17 @@ Base
       <th>Counts</th>
     </tr>
       <tr>
-        <td>1.59e-12</td>
-        <td>8.90e-15</td>
-        <td>1.10e-13</td>
-        <td>1.47e-12</td>
-        <td>0.84965</td>
-        <td>0.850961</td>
-        <td>0.86007</td>
+        <td>2.80e-13</td>
+        <td>1.39e-14</td>
+        <td>1.26e-14</td>
+        <td>2.54e-13</td>
+        <td>0.81</td>
+        <td>-0.05</td>
+        <td>0.91</td>
         <td>nan</td>
-        <td><a class="image-link" href="../images/2CXOJ085927.0-434528_lc_500s.png" target="_blank">1.00</a></td>
+        <td><a class="image-link" href="../images/2CXOJ063805.1-801854_lc.png" target="_blank">1.00</a></td>
         <td>1.0</td>
-        <td>6082.5</td>
+        <td>538</td>
        </tr>
     </tbody>
 </table>
@@ -2995,14 +2995,14 @@ Base
       <td></td>
     <tr>
       <tr>
-        <td><a class="image-link" href="../images/2CXOJ085905.6-473041_pl_spectrum.png" target="_blank">3.61</a></td>
-        <td><a class="image-link" href="../images/2CXOJ085905.6-473041_pl_corner.pdf" target="_blank">-6.37</a></td>
-        <td><a class="image-link" href="../images/2CXOJ085905.6-473041_mk_spectrum.png" target="_blank">1.28</a></td>
-        <td><a class="image-link" href="../images/2CXOJ085905.6-473041_mk_corner.pdf" target="_blank">0.00</a></td>
-        <td><a class="image-link" href="../images/2CXOJ085905.6-473041_bb_spectrum.png" target="_blank">0.59</a></td>
-        <td><a class="image-link" href="../images/2CXOJ085905.6-473041_bb_corner.pdf" target="_blank">-47.39</a></td>
-        <td>22.42</td>
-        <td>21.81</td>
+        <td><a class="image-link" href="../images/2CXOJ063805.1-801854_pl_spectrum.png" target="_blank">0.22</a></td>
+        <td><a class="image-link" href="../images/2CXOJ063805.1-801854_pl_corner.pdf" target="_blank">0.00</a></td>
+        <td><a class="image-link" href="../images/2CXOJ063805.1-801854_mk_spectrum.png" target="_blank">28.48</a></td>
+        <td><a class="image-link" href="../images/2CXOJ063805.1-801854_mk_corner.pdf" target="_blank">-30.87</a></td>
+        <td><a class="image-link" href="../images/2CXOJ063805.1-801854_bb_spectrum.png" target="_blank">1.91</a></td>
+        <td><a class="image-link" href="../images/2CXOJ063805.1-801854_bb_corner.pdf" target="_blank">-14.55</a></td>
+        <td>19.62</td>
+        <td>21.05</td>
        </tr>
     </tbody>
 </table>
@@ -3024,16 +3024,16 @@ Base
       <th>PM(arcsec/yr)</th>
     </tr>
       <tr>
-        <td>18.130289</td>
-        <td>20.997097</td>
-        <td>16.169699</td>
-        <td></td>
+        <td>20.092</td>
+        <td>20.400</td>
+        <td>19.814</td>
         <td>16.176</td>
         <td>15.607</td>
         <td>15.576</td>
         <td>16.300</td>
-        <td>1580.09277</td>
-        <td>0.009257</td>
+        <td>15.529</td>
+        <td>850.2</td>
+        <td>0.00861</td>
        </tr>
     </tbody>
 </table>
