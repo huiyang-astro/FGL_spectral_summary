@@ -1,0 +1,350 @@
+
+<!doctype html>
+<html>
+<head>
+    <style>
+        table.tablesmall, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        table.tablebig, td.tdsmall {
+        border: none;
+        /* border-collapse:collapse; 
+        font-family:verdana, arial, sans-serif; 
+        font-size:0.75em; 
+        line-height:2em; 
+        border:0px solid #363; */
+        }
+    </style>
+</head>
+
+<body>
+
+<script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+<table class="tablebig">
+<!-- <TABLE cellspacing="0" cellpadding="0"> -->
+<TR>
+<TD class="tdsmall">
+
+<H2>2CXO J073726.0+653656 Summary</H2>
+Image Opacity: <br/> <input id="slider" type="range" value=0.5 min=0 max=1 step=0.05 ; style="width:150px;height:5px;line-height:0%">
+
+
+
+<br/>
+<br/>
+<div id="aladin-lite-div" style="width:500px;height:500px"></div>
+
+Base 
+<input id="DSS" type="radio" name="survey" value="P/DSS2/Color" checked><label for="DSS"> <label> <A HREF="https://alasky.cds.unistra.fr/DSS/DSSColor/">Optical (DSS2)</A>
+<input id="2MASS" type="radio" name="survey" value="P/2MASS/Color"><label for="2MASS"> <label> <A HREF="https://alasky.cds.unistra.fr/2MASS/Color/">2MASS</A>
+<input id="WISE" type="radio" name="survey" value="WISE"><label for="WISE"> <label> <A HREF="https://alasky.cds.unistra.fr/AllWISE/RGB-W4-W2-W1/">AllWISE</A>
+<input id="NVSS" type="radio" name="survey" value="NVSS"><label for="NVSS"> <label> <A HREF="https://alasky.cds.unistra.fr/NVSS/intensity/">NVSS</A>
+<input id="RACS-m" type="radio" name="survey" value="RACS-m"><label for="RACS-m"> <label> <A HREF="https://casda.csiro.au/hips/RACS/mid/I/">RACS-m</A>
+<input id="RACS-l" type="radio" name="survey" value="RACS-l"><label for="RACS-l"> </label> <label> <A HREF="https://casda.csiro.au/hips/RACS/low/I/">RACS-l</A>
+<input id="SUMSS" type="radio" name="survey" value="SUMSS"><label for="SUMSS"> <label> <A HREF="https://alasky.cds.unistra.fr/SUMSS/">SUMSS</A>
+
+<br/> Overlay   
+<input id="XMM" type="radio" name="survey2" value="XMM"><label for="XMM"> <label> <A HREF="https://xcatdb.unistra.fr/PNColor/">XMM</A>
+<input id="CXO" type="radio" name="survey2" value="CXO" checked><label for="CXO"> <label> <A HREF="https://cdaftp.cfa.harvard.edu/cxc-hips/">CXO</A>
+<input id="RASS" type="radio" name="survey2" value="RASS"><label for="RASS"> <label> <A HREF="https://alasky.cds.unistra.fr/RASS/">RASS</A>
+<input id="BAT" type="radio" name="survey2" value="BAT"><label for="BAT"> <label> <A HREF="https://data.darts.isas.jaxa.jp/pub/HiPS/SWIFT-BAT_Image/">Swift BAT</A>
+<input id="Fermi" type="radio" name="survey2" value="Fermi"><label for="Fermi"> <label> <A HREF="https://alasky.cds.unistra.fr/Fermi/Color/">Fermi</A>
+<input id="HGPS" type="radio" name="survey2" value="HGPS"><label for="HGPS"> <label> <A HREF="https://alasky.cds.unistra.fr/pub/10.1051_0004-6361_201732098flux/">HESS GPS</A>
+
+<br/> Catalogues Citations:  <A HREF="https://www.mrao.cam.ac.uk/surveys/snrs/">SNR</A>, <A HREF="http://tevcat2.uchicago.edu/">TeVCat</A>, <A HREF="https://www.astro.puc.cl/BlackCAT/">BlackCAT</A>, <A HREF="https://www.atnf.csiro.au/research/pulsar/psrcat/">ATNF</A>,
+<A HREF="https://fermi.gsfc.nasa.gov/ssc/data/access/lat/14yr_catalog/">4FGL</A>,<A HREF="https://data.darts.isas.jaxa.jp/pub/HiPS/CHANDRA_Catalogue/">CSC</A>,<A HREF="https://data.darts.isas.jaxa.jp/pub/HiPS/XMM-EPIC_Catalogue/">XMM</A>,<A HREF="https://data.darts.isas.jaxa.jp/pub/HiPS/SWIFT-XRT_Catalogue/">XRT</A>,
+<A HREF="https://axel.u-strasbg.fr/HiPSCatService/Simbad">Simbad</A>
+<!-- <div id='aladin-statsDiv'></div> -->
+
+<script type="text/javascript" src="./aladin.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+    let aladin;
+    A.init.then(() => {
+        aladin = A.aladin('#aladin-lite-div', {target: "114.35854339263742, 65.61577050656837", fov:0.005});
+        
+        var callback = function(ra, dec, fov) {
+            aladin.addCatalog(A.catalogFromSimbad( {ra: ra, dec: dec} , 1 , {shape: 'circle', color: '#5d5', onClick: 'showTable'}));
+            // we must return true, so that the default action (set view to center of image) is performed
+            return true;
+        }
+
+        $("#slider").on('input', function() {
+            const opacity = $(this).val();
+            aladin.getOverlayImageLayer().setOpacity(opacity);
+        });
+        aladin.setBaseImageLayer('CDS/P/DSS2/color');
+
+        // //let fits = aladin.displayFITS('http://goldmine.mib.infn.it/data//B/fits/A04_VC1316_ooooog.fits', 'overlay');
+        // let jpg = aladin.displayJPG(
+        //     // the JPG to transform to HiPS
+        //     'https://noirlab.edu/public/media/archives/images/large/noirlab1912a.jpg',
+        //     //'https://www.mpe.mpg.de/7461845/original-1592580374.webp?t=eyJ3aWR0aCI6MTQwMCwiZmlsZV9leHRlbnNpb24iOiJ3ZWJwIiwicXVhbGl0eSI6ODYsIm9ial9pZCI6NzQ2MTg0NX0%3D--62fbec450be58711b7148b26c29805dddfa450f0',
+        //     // no options
+        //     {},
+        //     // A callback fn once the overlay is set
+        //     callback
+        // );
+
+        // aladin = A.aladin("#aladin-lite-div", {survey: "https://cdaftp.cfa.harvard.edu/cxc-hips", name:"Chandra",  target: target, fov: fov });
+        // //aladin.toggleFullscreen();
+
+        
+        // aladin.setOverlayImageLayer('CDS/P/HGPS/Flux');
+        // // aladin.getOverlayImageLayer().setAlpha(0.5);
+
+        // aladin.setOverlayImageLayer('CSIRO/P/RACS/low/I');
+        // // // aladin.getOverlayImageLayer().setAlpha(0.5);
+
+        // // aladin.setOverlayImageLayer('CSIRO/P/RACS/mid/I');
+        // aladin.setOverlayImageLayer('https://casda.csiro.au/hips/RACS/mid/I/');
+        
+        // // aladin.getOverlayImageLayer().setAlpha(0.5);
+
+        // aladin.setOverlayImageLayer('CDS/P/NVSS');
+        // // aladin.getOverlayImageLayer().setAlpha(0.5);
+
+        // aladin.setOverlayImageLayer('http://archive-new.nrao.edu/vlass/HiPS/VLASS1.2v2/Quicklook/');
+
+        // aladin.setOverlayImageLayer('http://archive-new.nrao.edu/vlass/HiPS/VLASS2.1/Quicklook/');
+
+        // aladin.setOverlayImageLayer('http://archive-new.nrao.edu/vlass/HiPS/VLASS2.2/Quicklook/');
+
+        // aladin.setOverlayImageLayer('http://archive-new.nrao.edu/vlass/HiPS/VLASS3.1/Quicklook/');
+
+        // aladin.setOverlayImageLayer('http://archive-new.nrao.edu/vlass/HiPS/VLASS_Epoch1/Quicklook/');
+        
+        // aladin.setOverlayImageLayer('JAXA/P/SWIFT/BAT/Image');
+        
+        aladin.setOverlayImageLayer('cxc.harvard.edu/P/cda/hips/allsky/rgb');
+
+        // aladin.setOverlayImageLayer('http://archive-new.nrao.edu/vlass/HiPS/VLASS1.1v2/Quicklook/');
+
+        // aladin.setOverlayImageLayer('http://archive-new.nrao.edu/vlass/HiPS/VCSS1/Images_vcss1_HiPS/');
+
+        // // aladin.getOverlayImageLayer().setAlpha(0.5);
+        
+
+        $('input[name=survey]').change(function() {
+            let surveyName = $(this).val();
+            if (surveyName === "P/2MASS/Color") {
+                aladin.setBaseImageLayer("CDS/P/2MASS/color");
+            } else if (surveyName === "P/DSS2/Color") {
+                aladin.setBaseImageLayer("CDS/P/DSS2/color");
+            } else if (surveyName === "WISE") {
+                aladin.setBaseImageLayer("CDS/P/allWISE/color");
+            } else if (surveyName === "RACS-m") {
+                // aladin.setBaseImageLayer("https://casda.csiro.au/hips/RACS/mid/I/");
+                aladin.setBaseImageLayer("CSIRO/P/RACS/mid/I");
+            } else if (surveyName === "RACS-l") {
+                aladin.setBaseImageLayer("CSIRO/P/RACS/low/I");
+            } else if (surveyName === "NVSS") {
+                aladin.setBaseImageLayer("CDS/P/NVSS");
+            } else if (surveyName === "SUMSS") {
+                aladin.setBaseImageLayer("https://alasky.cds.unistra.fr/SUMSS/");
+
+            } 
+        });
+
+        $('input[name=survey2]').change(function() {
+            let surveyName = $(this).val();
+            if (surveyName === "XMM") {
+                aladin.setOverlayImageLayer("xcatdb/P/XMM/PN/color");
+            } else if (surveyName === "CXO") {
+                aladin.setOverlayImageLayer("cxc.harvard.edu/P/cda/hips/allsky/rgb");
+            } else if (surveyName === "RASS") {
+                aladin.setOverlayImageLayer("CDS/P/RASS");
+            } else if (surveyName === "BAT") {
+                aladin.setOverlayImageLayer("JAXA/P/SWIFT/BAT/Image");
+            } else if (surveyName === "Fermi") {
+                aladin.setOverlayImageLayer("CDS/P/Fermi/color");
+            } else if (surveyName === "HGPS") {
+                aladin.setOverlayImageLayer("CDS/P/HGPS/Flux");
+            } 
+        });
+
+        var hips2 = A.catalogHiPS('https://axel.u-strasbg.fr/HiPSCatService/Simbad', {onClick: 'showTable', name: 'Simbad',sourceSize: 5});
+        hips2.hide();
+        aladin.addCatalog(hips2);
+
+        var hips = A.catalogHiPS('https://data.darts.isas.jaxa.jp/pub/HiPS/SWIFT-XRT_Catalogue/', {onClick: 'showPopup',  sourceSize: 10,  name: 'XRT',shape:'circle'});
+        hips.hide(); 
+        aladin.addCatalog(hips);
+
+         // var hips5 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/SNR_aladin-lite-example/main/files/catalogs/4XMM-DR13.vot', {onClick: 'showPopup', sourceSize: 10,  name:'XMM',shape:'circle', color:'orange'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
+         var hips5 = A.catalogHiPS('https://data.darts.isas.jaxa.jp/pub/HiPS/XMM-EPIC_Catalogue/', {onClick: 'showTable', sourceSize: 10, name: 'XMM',shape:'circle' });
+         hips5.hide();
+         aladin.addCatalog(hips5);
+
+         var hips6 = A.catalogHiPS('https://data.darts.isas.jaxa.jp/pub/HiPS/CHANDRA_Catalogue/', {onClick: 'showTable', sourceSize: 10, name: 'CSC',shape:'circle',color:'white' });
+         hips6.hide();
+         aladin.addCatalog(hips6);
+
+        var hips4 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/SNR_aladin-lite-example/main/files/catalogs/4FGL-DR4.vot', {onClick: 'showPopup', sourceSize: 10,  name:'4FGL',shape:'circle'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
+        hips4.hide(); 
+        aladin.addCatalog(hips4);
+
+        var hips9 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/FGL-aladin-lite-test/main/ATNF_NS.vot', {onClick: 'showPopup', sourceSize: 10,  name:'ATNF'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
+        hips9.hide(); 
+        aladin.addCatalog(hips9);
+
+        var hips3 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/SNR_aladin-lite-example/main/files/catalogs/BlackCAT.vot', {onClick: 'showPopup', sourceSize: 10,  name:'BlackCAT'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
+        hips3.hide(); 
+        aladin.addCatalog(hips3);
+        
+        var hips10 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/FGL-aladin-lite-test/main/TeVCat.vot', {onClick: 'showPopup', sourceSize: 10,  name:'TeVCat'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
+        hips10.hide();  
+        aladin.addCatalog(hips10);
+
+        // var hips7 = A.catalogFromURL('https://raw.githubusercontent.com/huiyang-astro/SNR_aladin-lite-example/main/files/catalogs/SNR.vot', {onClick: 'showPopup', sourceSize: 10,  name:'SNR'}); //,displayLabel: true, labelColumn: 'Class', labelColor: 'cyan', labelFont: '20px sans-serif', onClick: 'showTable',
+        //   aladin.addCatalog(hips7);
+
+          // 'gold', 'orange', 'magenta', 'red', 'blue'
+
+    });
+</script>
+
+</TD>
+<TD class="tdsmall">
+
+<table  class="tablesmall" style="width:60%">
+    <tbody> 
+    <tr>
+      <th>Name</th>
+      <th>FGL</th>
+      <th>GLON</th>
+      <th>GLAT</th>
+      <th>Class</th>
+      <th>Prob</th>
+      <th>Prob_e</th>
+      <th>CT</th>
+    </tr>
+    <tr>
+    <td>2CXOJ073726.0+653656</td>
+    <td>J0737.4+6535</td>
+    <td>150.5561217</td>
+    <td>29.2458279</td>
+    <td><a class="image-link" href="../images/shap/J073726.0+653656_AGN.png" target="_blank">AGN</a></td>
+    <td>0.988</td>
+    <td>0.018</td>
+    <td>34.15</td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+
+
+<table  class="tablesmall" style="width:60%">
+    <tbody> 
+    <tr>
+      <th>Fb (c.g.s.)</th>
+      <th>Fs (c.g.s.)</th>
+      <th>Fm (c.g.s.)</th>
+      <th>Fh (c.g.s.)</th>
+      <th>HR_hms</th>
+      <th>HR_ms</th>
+      <th>HR_hm</th>
+      <th>P_inter</th>
+      <th>P_intra</th>
+      <th>Nobs</th>
+      <th>Counts</th>
+    </tr>
+      <tr>
+        <td>6.02e-15</td>
+        <td>7.83e-16</td>
+        <td>1.11e-15</td>
+        <td>4.12e-15</td>
+        <td>0.37</td>
+        <td>0.17</td>
+        <td>0.57</td>
+        <td>0.28</td>
+        <td><a class="image-link" href="../images/2CXOJ073726.0+653656_lc.png" target="_blank">0.68</a></td>
+        <td>0.0</td>
+        <td>0</td>
+       </tr>
+    </tbody>
+</table>
+
+<br>
+
+<table  class="tablesmall" style="width:60%">
+    <tbody> 
+    <tr>
+      <th colspan="2">PL</th>
+      <th colspan="2">Mekal</th>
+      <th colspan="2">BB</th>
+      <th>log10(Nh)</th>
+      <th>log10(Nh_LAB)</th>
+    </tr>
+    <tr>
+      <td>&Gamma;</td>
+      <td>&Delta;log10(Z)</td>
+      <td>kT_MK (keV)</td>
+      <td>&Delta;log10(Z)</td>
+      <td>kT_BB (keV)</td>
+      <td>&Delta;log10(Z)</td>
+      <td></td>
+      <td></td>
+    <tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>20.65</td>
+       </tr>
+    </tbody>
+</table>
+
+<br>
+
+<table  class="tablesmall" style="width:60%">
+    <tbody> 
+    <tr>
+      <th>Gmag</th>
+      <th>BPmag</th>
+      <th>RPmag</th>
+      <th>Jmag</th>
+      <th>Hmag</th>
+      <th>Kmag</th>
+      <th>W1mag</th>
+      <th>W2mag</th>
+      <th>rgeo(pc)</th>
+      <th>PM(arcsec/yr)</th>
+    </tr>
+      <tr>
+        <td>nan</td>
+        <td>nan</td>
+        <td>nan</td>
+        <td>nan</td>
+        <td>nan</td>
+        <td>nan</td>
+        <td>16.435</td>
+        <td>16.322</td>
+        <td>nan</td>
+        <td>nan</td>
+       </tr>
+    </tbody>
+</table>
+
+</TD>
+</TR>
+</TABLE>
+
+
+<HR>
+Any comments are welcome to improve this visualization website by <A HREF="https://github.com/huiyang-astro/SNR_aladin-lite-example/issues/new">submitting an issue report</A>. 
+Survey images or catalogues available from <A HREF="https://aladin.cds.unistra.fr/hips/list">HiPS list aggregator</A> or any other HiPS database can be added easily.  
+<br/>
+This visualization tool is displayed by <A HREF="https://aladin.u-strasbg.fr/AladinLite">Aladin Lite</A>. 
+
+
+
+</body>
+</html>
