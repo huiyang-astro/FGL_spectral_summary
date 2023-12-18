@@ -15,9 +15,10 @@ models = dict([(f, json.load(open(f + "/info/results.json"))['logz']) for f in p
 best = max(models, key=models.__getitem__)
 Zbest = models[best]
 for m in models: models[m] -= Zbest
+# print(models.values())
 Ztotal = log(sum(numpy.exp([Z for Z in list(models.values())])))
 limit = 30 # for example, Jeffreys scale for the Bayes factor
-
+# print(Ztotal)
 print()
 print('Model comparison')
 print('****************')

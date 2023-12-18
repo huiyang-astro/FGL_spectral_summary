@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Table with Selectable Columns</title>
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Include DataTables CSS and JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+    <!-- Include DataTables Buttons CSS and JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+</head>
+<body>
+
+<!-- Your buttons for toggling columns go here -->
+<div>
+    <button class="toggle-column" data-column="0">Name</button>
+    <button class="toggle-column" data-column="1">Age</button>
+    <button class="toggle-column" data-column="2">Country</button>
+</div>
+
+<!-- Your interactive table goes here -->
+<table id="interactiveTable" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Country</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>John Doe</td>
+            <td>25</td>
+            <td>USA</td>
+        </tr>
+        <tr>
+            <td>Jane Doe</td>
+            <td>30</td>
+            <td>Canada</td>
+        </tr>
+        <!-- Add more rows as needed -->
+    </tbody>
+</table>
+
+<!-- Initialize DataTables with Buttons extension -->
+<script>
+    $(document).ready( function () {
+        var table = $('#interactiveTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: ['colvis']
+        });
+
+        // Toggle column visibility on button click
+        $('.toggle-column').on('click', function () {
+            var column = table.column($(this).data('column'));
+            column.visible(!column.visible());
+        });
+    });
+</script>
+
+</body>
+</html>
+
